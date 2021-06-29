@@ -21,13 +21,13 @@ class _MyAppState extends State<MyApp> {
     dynamic platformVersion;
     PaymentItem paymentItems = PaymentItem(label: 'Label', amount: 51.0);
     try {
-      platformVersion = await FlutterApplePay.makePayment(
+      platformVersion = await FlutterApplePay.getStripeToken(
         countryCode: "US",
         currencyCode: "USD",
         paymentNetworks: [PaymentNetwork.visa, PaymentNetwork.mastercard],
         merchantIdentifier: "merchant.stripeApplePayTest",
         paymentItems: [paymentItems],
-        stripePublishedKey: "pk_test_TYooMQauvdEDq54NiTphI7jx"
+        stripePublishedKey: "pk_test_TYooMQauvdEDq54NiTphI7jx", merchantName: 'Dorm Mom'
       );
       print(platformVersion);
     } on PlatformException {
@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
                 Text('Waiting for Apple Pay modal.'),
-                RaisedButton(
+                ElevatedButton(
                   child: Text('Call payment'),
                   onPressed: () => makePayment(),
                 )
